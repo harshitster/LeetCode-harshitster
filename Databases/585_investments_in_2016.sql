@@ -1,0 +1,6 @@
+SELECT ROUND(SUM(tiv_2016), 2) AS tiv_2016
+FROM (
+    SELECT *, COUNT(*) OVER(PARTITION BY tiv_2015) AS t2015, COUNT(*) OVER(PARTITION BY lat, lon) AS loc
+    FROM Insurance
+) AS InsuranceM
+WHERE t2015 > 1 AND loc = 1
