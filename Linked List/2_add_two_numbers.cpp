@@ -1,43 +1,55 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        if(l1 == nullptr && l2 == nullptr) return nullptr;
+        ListNode* temp1 = l1, *temp2 = l2;
+        ListNode* prev = nullptr;
 
-        ListNode* curr1 = l1,* curr2 = l2,* prev = nullptr;
-        int c = 0, sum, val;
-        while(curr1 && curr2) {
-            sum = curr1 -> val + curr2 -> val + c;
-            val = sum % 10;
+        int c = 0;
+        while(temp1 && temp2) {
+            int sum = temp1 -> val + temp2 -> val + c;
             c = sum / 10;
+            int val = sum % 10;
 
-            curr1 -> val = val;
+            temp1 -> val = val;
 
-            prev = curr1;
-            curr1 = curr1 -> next;
-            curr2 = curr2 -> next;
+            prev = temp1;
+            temp1 = temp1 -> next;
+            temp2 = temp2 -> next;
         }
 
-        if(curr2) {
-            prev -> next = curr2;
-            curr1 = curr2;
+        ListNode* temp = nullptr;
+        if(temp1 != nullptr || temp2 != nullptr){
+            if(temp1 == nullptr) {
+                prev -> next = temp2;
+                temp = temp2;
+            }
+            else temp = temp1;
         }
 
-        while(c == 1) {
-            if(curr1 == nullptr) {
-                prev -> next = new ListNode(1);
-                return l1;
-            } 
-
-            sum = curr1 -> val + c;
-            val = sum % 10;
+        while(temp && c == 1) {
+            int sum = temp -> val + c;
             c = sum / 10;
+            int val = sum % 10;
 
-            curr1 -> val = val;
-
-            prev = curr1;
-            curr1 = curr1 -> next;
+            prev = temp;
+            temp -> val = val;
+            temp = temp -> next;
         }
+
+        if(c == 1) prev -> next = new ListNode(1);
 
         return l1;
     }
 };
+
+// # Revised - 01/15/2025

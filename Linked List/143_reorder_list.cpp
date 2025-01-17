@@ -9,47 +9,33 @@
  * };
  */
 class Solution {
-private:
-    ListNode* reverseList(ListNode* head) {
-        ListNode* prev = nullptr,* curr = head,* next = head -> next;
-
-        while(next) {
-            curr -> next = prev;
-            prev = curr;
-            curr = next;
-            next = next -> next;
-        }
-        curr -> next = prev;
-        head = curr;
-        return head;
-    }
 public:
     void reorderList(ListNode* head) {
-        if(head == nullptr || head -> next == nullptr) return;
+        ListNode* slow = head, *fast = head;
 
-        ListNode* slow = head,* fast = head;
-        ListNode* prev = nullptr;
-        while(fast && fast -> next) {
-            prev = slow;
+        while(fast -> next && fast -> next -> next) {
             slow = slow -> next;
             fast = fast -> next -> next;
         }
 
-        prev -> next = nullptr;
-        slow = reverseList(slow);
-
-        ListNode* temp1 = head,* temp2 = slow;
-        prev = nullptr;
-        while(temp1 && temp2) {
-            ListNode* temp = temp2 -> next;
-            temp2 -> next = temp1 -> next;
-            temp1 -> next = temp2;
-
-            prev = temp2;
-            temp1 = temp2 -> next;
-            temp2 = temp;
+        stack<ListNode*> s;
+        fast = slow -> next;
+        slow -> next = nullptr;
+        while(fast) {
+            s.push(fast);
+            fast = fast -> next;
         }
 
-        if(temp2) prev -> next = temp2;
+        slow = head;
+        while(!s.empty()) {
+            ListNode* node = s.top();
+            s.pop();
+
+            node -> next = slow -> next;
+            slow -> next = node;
+            slow = node -> next;
+        }
     }
 };
+
+// Revised - 01/16/2025

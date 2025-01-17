@@ -18,3 +18,5 @@ class Solution:
                         obstacleGrid[i][j] += obstacleGrid[i][j + 1]
         
         return obstacleGrid[0][0]
+
+# Revised - 01/06/2025

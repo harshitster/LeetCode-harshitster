@@ -11,18 +11,21 @@
  */
 class Solution {
 private:
-    void helper(TreeNode* root, int* sum) {
+    void helper(TreeNode* root, TreeNode** prev) {
         if(root == nullptr) return;
 
-        helper(root -> right, sum);
-        root -> val += *sum;
-        (*sum) = root -> val;
-        helper(root -> left, sum);
+        helper(root -> right, prev);
+        root -> val += (*prev) -> val;
+        *prev = root;
+        helper(root -> left, prev);
     }
 public:
     TreeNode* convertBST(TreeNode* root) {
-        int sum = 0;
-        helper(root, &sum);
+        TreeNode* prev = new TreeNode(0);
+        helper(root, &prev);
+
         return root;
     }
 };
+
+// Revised - 01/16/2025

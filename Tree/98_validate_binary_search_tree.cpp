@@ -1,23 +1,26 @@
 class Solution {
 private:
-    void helper(TreeNode* root, long int* prev, int* flag) {
-        if(*flag == 1) {
-            if(root == nullptr) return;
+    void helper(TreeNode* root, TreeNode** prev, int* flag) {
+        if(*flag == 0 || root == nullptr) return;
 
-            helper(root -> left, prev, flag);
-            if(root -> val <= *prev){
+        helper(root -> left, prev, flag);
+        if(*prev != nullptr) {
+            if((*prev) -> val >= root -> val) {
                 *flag = 0;
                 return;
             }
-            *prev = root -> val;
-            helper(root -> right, prev, flag);
         }
+        *prev = root;
+        helper(root -> right, prev, flag);
     }
 public:
     bool isValidBST(TreeNode* root) {
-        long int prev = LONG_MIN; 
         int flag = 1;
+        TreeNode* prev = nullptr;
         helper(root, &prev, &flag);
-        return flag == 1;
+
+        return flag == 1 ? true : false;
     }
 };
+
+// Revised - 01/08/2025

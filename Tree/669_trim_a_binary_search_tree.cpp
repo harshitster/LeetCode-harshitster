@@ -17,9 +17,15 @@ public:
         root -> left = trimBST(root -> left, low, high);
         root -> right = trimBST(root -> right, low, high);
 
-        if(root -> val < low) return root -> right;
-        if(root -> val > high) return root -> left;
+        if(root -> val < low || root -> val > high) {
+            if(root -> left == nullptr && root -> right == nullptr) return nullptr;
+
+            if(root -> val < low) return root -> right;
+            else return root -> left;
+        }
 
         return root;
     }
 };
+
+// Revised - 01/16/2025
