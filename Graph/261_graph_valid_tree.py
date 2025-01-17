@@ -30,3 +30,30 @@ class Solution:
                 return False
 
         return True
+    
+class Solution:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        graph = {i: [] for i in range(n)}
+        for e in edges:
+            graph[e[0]].append(e[1])
+            graph[e[1]].append(e[0])
+
+        def dfs(node, prev, visited):
+            if node in visited:
+                return False
+
+            visited.add(node)
+            for n in graph[node]:
+                if n != prev:
+                    res = dfs(n, node, visited)
+                    if not res:
+                        return False
+
+            return True
+
+        visited = set()
+        res = dfs(0, -1, visited) and len(visited) == n
+
+        return res
+    
+# Revised - 01/17/2025
