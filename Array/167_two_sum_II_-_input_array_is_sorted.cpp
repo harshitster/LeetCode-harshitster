@@ -1,9 +1,14 @@
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        hashmap = {}
+        low, high = 0, len(numbers) - 1
 
-        for i in range(len(numbers)):
-            rem = target - numbers[i]
-            if rem in hashmap:
-                return [hashmap[rem] + 1, i + 1]
-            hashmap[numbers[i]] = i
+        while(low < high):
+            s = numbers[low] + numbers[high]
+            if s == target:
+                return [low + 1, high + 1]
+            elif s < target:
+                low += 1
+            else:
+                high -= 1
+
+        return [-1, -1]
