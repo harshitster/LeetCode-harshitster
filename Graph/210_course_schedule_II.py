@@ -1,31 +1,31 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         graph = {i: [] for i in range(numCourses)}
-        for p in prerequisites:
-            graph[p[0]].append(p[1])
+        for course, pre in prerequisites:
+            graph[course].append(pre)
 
-        states = [0] * numCourses
-        def dfs(course, out):
-            if states[course] == 2:
-                return True
-            elif states[course] == 1:
+        state = [0] * numCourses
+        res = []
+        def dfs(course):
+            if state[course] == 1:
                 return False
+            if state[course] == 2: 
+                return True
 
-            states[course] = 1
+            state[course] = 1
 
-            for p in graph[course]:
-                res = dfs(p, out)
-                if not res:
+            for prereq in graph[course]:
+                if not dfs(prereq):
                     return False
 
-            states[course] = 2
-            out.append(course)
+            state[course] = 2
+            res.append(course)
             return True
 
-        out = []
         for i in range(numCourses):
-            dfs(i, out)
+            if not dfs(i):
+                return []
 
-        return out if len(out) == numCourses else []
+        return res
     
-# Revised - 01/17/2025
+# revised - 01/25/2025
