@@ -22,3 +22,5 @@ public:
         return fast == 1;
     }
 };
+
+// revised - 01/27/2025
