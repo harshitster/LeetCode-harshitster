@@ -12,3 +12,5 @@ class Solution:
             res.append(point)
 
         return res
+    
+# revised - 02/03/2025
