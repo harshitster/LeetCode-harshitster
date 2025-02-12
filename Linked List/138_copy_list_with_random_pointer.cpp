@@ -15,25 +15,25 @@ public:
 */
 
 class Solution {
-public:
-    Node* copyRandomList(Node* head) {
-        if(head == nullptr) return nullptr;
-        
-        unordered_map<Node*, Node*> map;
-
-        Node* curr = head;
-        while(curr) {
-            map[curr] = new Node(curr -> val);
-            curr = curr -> next;
+    public:
+        Node* copyRandomList(Node* head) {
+            unordered_map<Node*, Node*> map;
+    
+            Node* temp = head;
+            while(temp) {
+                map[temp] = new Node(temp -> val);
+                temp = temp -> next;
+            }
+    
+            temp = head;
+            while(temp) {
+                map[temp] -> next = map[temp -> next];
+                map[temp] -> random = map[temp -> random];
+                temp = temp -> next;
+            }
+    
+            return map[head];
         }
+    };
 
-        curr = head;
-        while(curr) {
-            map[curr] -> next = map[curr -> next];
-            map[curr] -> random = map[curr -> random];
-            curr = curr -> next;
-        }
-
-        return map[head];
-    }
-};
+// revised - 02/11/2025

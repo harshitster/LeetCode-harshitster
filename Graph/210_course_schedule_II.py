@@ -5,7 +5,7 @@ class Solution:
             graph[course].append(pre)
 
         state = [0] * numCourses
-        res = []
+        out = []
         def dfs(course):
             if state[course] == 1:
                 return False
@@ -19,13 +19,13 @@ class Solution:
                     return False
 
             state[course] = 2
-            res.append(course)
+            out.append(course)
             return True
 
         for i in range(numCourses):
             if not dfs(i):
                 return []
 
-        return res
+        return out
     
-# revised - 01/25/2025
+# revised - 02/11/2025

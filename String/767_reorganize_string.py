@@ -1,29 +1,28 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
         hashmap = {}
-        for i in range(len(s)):
-            if s[i] not in hashmap:
-                hashmap[s[i]] = 1
-            else:
-                hashmap[s[i]] += 1
+        for c in s:
+            hashmap[c] = hashmap.get(c, 0) + 1
 
-        h = [[-count, char] for char, count in hashmap.items()]
-        heapq.heapify(h)
+        heap = [(-count, c) for c, count in hashmap.items()]
+        heapq.heapify(heap)
 
         prev = None
         res = ""
-        while h or prev:
-            if prev and not h:
+        while heap or prev:
+            if not heap and prev:
                 return ""
 
-            count, char = heapq.heappop(h)
-            res += char
+            count, c = heapq.heappop(heap)
+            res += c
             count += 1
 
             if prev:
-                heapq.heappush(h, prev)
+                heapq.heappush(heap, prev)
                 prev = None
             if count != 0:
-                prev = [count, char]
+                prev = (count, c)
 
         return res
+    
+# revised - 02/11/2025

@@ -1,24 +1,25 @@
 struct Node {
-    int val;
     int key;
+    int val;
     Node* next;
     Node* prev;
 
-    Node(int key, int val, Node* next, Node* prev) : key(key), val(val), next(next), prev(prev) {};
+    Node(int key, int val) : key(key), val(val), next(nullptr), prev(nullptr) {};
 };
 
 class LRUCache {
 private:
-    int capacity;
-    Node* head = new Node(-1, -1, nullptr, nullptr);
-    Node* tail = new Node(-1, -1, nullptr, nullptr);
+    Node* head = nullptr;
+    Node* tail = nullptr;
     unordered_map<int, Node*> map;
-
+    int capacity;
 public:
     LRUCache(int capacity) {
-        this -> capacity = capacity;
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
         head -> next = tail;
         tail -> prev = head;
+        this -> capacity = capacity;
     }
     
     int get(int key) {
@@ -27,12 +28,11 @@ public:
         Node* node = map[key];
         remove(node);
         add(node);
-
         return node -> val;
     }
     
     void put(int key, int value) {
-        Node* node = nullptr; 
+        Node* node = nullptr;
 
         if(map.find(key) != map.end()) {
             node = map[key];
@@ -40,9 +40,9 @@ public:
             remove(node);
             add(node);
         } else {
-            node = new Node(key, value, nullptr, nullptr);
-            map[key] = node;
+            node = new Node(key, value);
             add(node);
+            map[key] = node;
         }
 
         if(map.size() > capacity) {
@@ -52,17 +52,17 @@ public:
         }
     }
 
-    void remove(Node* node) {
-        node -> next -> prev = node -> prev;
-        node -> prev -> next = node -> next;
-    }
-
     void add(Node* node) {
         Node* head_node = head -> next;
         node -> next = head_node;
         node -> prev = head;
         head_node -> prev = node;
         head -> next = node;
+    }
+
+    void remove(Node* node) {
+        node -> next -> prev = node -> prev;
+        node -> prev -> next = node -> next;
     }
 };
 
@@ -72,3 +72,5 @@ public:
  * int param_1 = obj->get(key);
  * obj->put(key,value);
  */
+
+ // revised - 02/11/2025
