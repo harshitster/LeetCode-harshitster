@@ -9,7 +9,7 @@ class Solution:
             
             while temp in nums:
                 nums.remove(temp)
-                count += 1
+                count += 1 
                 temp += 1
 
             temp = num - 1
@@ -22,4 +22,4 @@ class Solution:
 
         return ls
 
-# revised - 01/25/2025
+# revised - 02/12/2025
