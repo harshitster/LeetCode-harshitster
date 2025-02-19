@@ -1,7 +1,6 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
         queue = []
-        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
         m, n = len(grid), len(grid[0])
 
         for i in range(m):
@@ -9,8 +8,9 @@ class Solution:
                 if grid[i][j] == 2:
                     queue.append((i, j))
 
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
         minutes = 0
-        while queue:
+        while len(queue) > 0:
             size = len(queue)
 
             for _ in range(size):
@@ -30,4 +30,4 @@ class Solution:
 
         return max(minutes - 1, 0)
     
-# revised - 02/11/2025
+# revised - 02/18/2025

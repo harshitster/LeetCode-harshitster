@@ -11,20 +11,22 @@ class Solution:
             '9': ['w', 'x', 'y', 'z'] 
         }
 
-        output = []
-        n = len(digits)
+        out = []   
+        n = len(digits) 
         if n == 0:
-            return output
+            return out
 
-        def backtrack(start_index, elements):
-            if start_index == n:
-                output.append(elements)
+        def backtrack(i, element):
+            if i == n:
+                out.append(element)
                 return
 
-            for l in map[digits[start_index]]:
-                elements += l
-                backtrack(start_index + 1, elements)
-                elements = elements[:-1]
+            for c in map[digits[i]]:
+                element += c
+                backtrack(i + 1, element)
+                element = element[:-1]
 
-        backtrack(0, '')
-        return output
+        backtrack(0, "")
+        return out
+    
+# revised - 02/18/2025

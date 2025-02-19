@@ -1,17 +1,19 @@
 class Solution:
     def getLargestOutlier(self, nums: List[int]) -> int:
         hashmap = {}
-        total = 0
+        total_sum = 0
         for num in nums:
             hashmap[num] = hashmap.get(num, 0) + 1
-            total += num
+            total_sum += num
 
-        out = float('-inf')
+        outlier = float('-inf')
         for num in nums:
-            pc = total - 2 * num
+            po = total_sum - 2 * num
 
-            if pc in hashmap:
-                if pc != num or hashmap[pc] > 1:
-                    out = max(out, pc)
+            if po in hashmap:
+                if po != num or hashmap[po] > 1:
+                    outlier = max(outlier, po)
 
-        return out
+        return outlier
+
+# revised - 02/18/2025

@@ -1,8 +1,8 @@
 class Solution:
     def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
         graph = {i: set() for i in range(numCourses)}
-        for p, q in prerequisites:
-            graph[p].add(q)
+        for u, v in prerequisites:
+            graph[u].add(v)
 
         def dfs(node, visited, preqs):
             visited.add(node)
@@ -13,17 +13,20 @@ class Solution:
                     dfs(n, visited, preqs)
                 preqs[node] |= preqs[n]
 
-        preqs = {i : set() for i in range(numCourses)}
+        preqs = {i: set() for i in range(numCourses)}
         visited = set()
+
         for i in range(numCourses):
             if i not in visited:
                 dfs(i, visited, preqs)
 
-        res = []
+        out = []
         for u, v in queries:
-            if u in preqs and v in preqs[u]:
-                res.append(True)
+            if v in preqs[u]:
+                out.append(True)
             else:
-                res.append(False)
+                out.append(False)
 
-        return res
+        return out
+
+# revised - 02/18/2025

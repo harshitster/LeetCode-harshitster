@@ -20,3 +20,5 @@ class Solution:
 
         n = len(nums)
         return [search(0, n - 1, True), search(0, n - 1, False)]
+    
+# revised - 02/18/2025
