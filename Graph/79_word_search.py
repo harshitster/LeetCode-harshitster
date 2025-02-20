@@ -1,31 +1,29 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        self.rows, self.cols = len(board), len(board[0])
-        self.directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
-        self.word_length = len(word)
+        m, n = len(board), len(board[0])
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
-        def dfs(i, j, idx):
-            if word[idx] != board[i][j]:
-                return False
-            if idx + 1 == self.word_length:
+        def dfs(i, j, index):
+            if index == len(word):
                 return True
 
             c = board[i][j]
             board[i][j] = '$'
-            for di, dj in self.directions:
-                I, J = i + di, j + dj
-                if I >= 0 and I < self.rows and J >= 0 and J < self.cols:
-                    if dfs(I, J, idx + 1):
+            for ni, nj in directions:
+                I, J = i + ni, j + nj
+                if 0 <= I < m and 0 <= J < n and board[I][J] == word[index]:
+                    if dfs(I, J, index + 1):
                         return True
-            board[i][j] = c        
 
+            board[i][j] = c
             return False
 
-        for i in range(self.rows):
-            for j in range(self.cols):
-                if dfs(i, j, 0):
+
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == word[0] and dfs(i, j, 1):
                     return True
 
         return False
     
-# revised - 02/03/2025
+# revised - 02/19/2025

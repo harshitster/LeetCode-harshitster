@@ -3,12 +3,18 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        n = len(matrix)
-
-        for i in range(n // 2):
+        
+        m, n = len(matrix), len(matrix[0])
+        for i in range(m // 2):
             for j in range(n):
-                matrix[i][j], matrix[n - i - 1][j] = matrix[n - i - 1][j], matrix[i][j]
+                matrix[i][j], matrix[m - i - 1][j] = matrix[m - i - 1][j], matrix[i][j]
 
-        for i in range(n):
-            for j in range(i + 1, n):
-                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+
+        for i in range(m):
+            for j in range(i, n):
+                if i == j:
+                    continue
+                else:
+                    matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+
+# revised - 02/19/2025

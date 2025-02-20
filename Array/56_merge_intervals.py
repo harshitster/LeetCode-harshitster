@@ -1,15 +1,14 @@
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         intervals = sorted(intervals, key=lambda x: x[0])
-        left, length = 0, len(intervals)
+        out = [intervals[0]]
 
-        for right in range(1, length):
-            while right < length and intervals[left][1] >= intervals[right][0]:
-                intervals[left][1] = max(intervals[left][1], intervals[right][1])
-                intervals.pop(right)
-                length -= 1
-            left += 1
+        for right in range(1, len(intervals)):
+            if out[-1][1] >= intervals[right][0]:
+                out[-1][1] = max(out[-1][1], intervals[right][1])
+            else:
+                out.append(intervals[right])
 
-        return intervals
+        return out
 
-# 02/11/2025
+# 02/19/2025
