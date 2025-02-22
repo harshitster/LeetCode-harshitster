@@ -19,3 +19,5 @@ class Solution:
                 hashmap[s] = nums[i]
 
         return max(max_sum, -1)
+    
+# revised - 02/21/2025

@@ -12,3 +12,5 @@ class Solution:
             stack = stack[:-k]
         
         return "".join(stack).lstrip('0') or "0"
+    
+# revised - 02/21/2025

@@ -15,3 +15,6 @@ class Solution:
                     stack_length -= part_length
 
         return "".join(stack)
+
+
+# revised - 02/21/2025
