@@ -17,3 +17,5 @@ class Solution:
                     left = pivot + 1
 
         return nums[left]
+    
+# revised - 02/25/2025

@@ -1,20 +1,29 @@
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-        length = len(s)
-        dp = [[False] * length for _ in range(length)]
-        res = []
+        memo = {}
+        n = len(s)
 
-        def backtrack(s, dp, res, start, rl):
-            if start >= length:
-                res.append(list(rl))
-                return
+        def is_palindrome(s):
+            return s == s[::-1]
 
-            for end in range(start, length):
-                if s[start] == s[end] and (end - start <= 2 or dp[start + 1][end - 1]):
-                    rl.append(s[start:end + 1])
-                    dp[start][end] = True
-                    backtrack(s, dp, res, end + 1, rl)
-                    rl.pop()
+        def backtrack(start):
+            if start in memo:
+                return memo[start]
 
-        backtrack(s, dp, res, 0, [])
-        return res
+            if start >= n:
+                return [[]]
+
+            res = []
+            for end in range(start, n):
+                substring = s[start:end + 1]
+                if is_palindrome(substring):
+                    for suffix in backtrack(end + 1):
+                        res.append([substring] + suffix)
+
+            memo[start] = res
+            return res
+
+        return backtrack(0)
+
+
+# revised - 02/25/2025

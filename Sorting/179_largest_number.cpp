@@ -1,21 +1,22 @@
 class Solution {
     private:
         static bool compare(int a, int b) {
-            string s1 = to_string(a) + to_string(b);
-            string s2 = to_string(b) + to_string(a);
-            return s1 > s2;
+            string sum1 = to_string(a) + to_string(b);
+            string sum2 = to_string(b) + to_string(a);
+            return sum1 > sum2;
         }
-    public:
+    public: 
         string largestNumber(vector<int>& nums) {
             sort(nums.begin(), nums.end(), compare);
+            string out = "";
     
-            if (nums[0] == 0) return "0";
-            
-            string result;
-            for (int num : nums) {
-                result += to_string(num);
+            for(int num: nums) {
+                out += to_string(num);
             }
-            
-            return result;
+    
+            if(out[0] == '0') return "0";
+            else return out; 
         }
     };
+
+// revised - 02/25/2025
