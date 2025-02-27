@@ -1,9 +1,11 @@
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-        out, perm = [], []
         hashmap = {}
         for num in nums:
             hashmap[num] = hashmap.get(num, 0) + 1
+
+        out = []
+        perm = []
 
         def backtrack():
             if len(perm) == len(nums):
@@ -21,4 +23,4 @@ class Solution:
         backtrack()
         return out
     
-# revised - 02/18/2025
+# revised - 02/26/2025

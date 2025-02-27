@@ -26,26 +26,25 @@ class Solution {
                 temp2 = temp2 -> next;
             }
     
-            if(temp1 == nullptr && temp2 == nullptr) {
-                if(c == 1) prev -> next = new ListNode(c, nullptr);
-                return l1;
-            } else if(temp2){
+            if(temp2) {
                 prev -> next = temp2;
                 temp1 = temp2;
-            }
+            } 
     
             while(temp1 && c) {
-                int sum = temp1 -> val + 1;
-                temp1 -> val = sum % 10;
+                int sum = temp1 -> val + c;
+                int val = sum % 10;
                 c = sum / 10;
+                
+                temp1 -> val = val;
                 prev = temp1;
                 temp1 = temp1 -> next;
             }
     
-            if(c == 1) prev -> next = new ListNode(c, nullptr);
+            if(c) prev -> next = new ListNode(1);
     
             return l1;
         }
     };
 
-// revised - 02/18/2025
+// revised - 02/26/2025

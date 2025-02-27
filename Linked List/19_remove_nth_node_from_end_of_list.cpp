@@ -8,39 +8,22 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
 class Solution {
-private:
-    int length(ListNode* head) {
-        int length = 0;
-        while(head) {
-            length += 1;
-            head = head -> next;
+    private:
+        ListNode* helper(ListNode* head, int* n) {
+            if(head == nullptr) return nullptr;
+    
+            head -> next = helper(head -> next, n);
+            (*n) -= 1;
+    
+            if(*n == 0) return head -> next;
+            return head;
         }
-        return length;
-    }
-public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) {
-        int len = length(head);
-        if(len == 0) return nullptr;
-
-        n = len - n + 1;
-        int i = 1;
-
-        ListNode* temp = head, *prev = nullptr;
-        while(temp && i != n) {
-            i += 1;
-            prev = temp;
-            temp = temp -> next;
+    public:
+        ListNode* removeNthFromEnd(ListNode* head, int n) {
+            return helper(head, &n);
         }
+    };
 
-        if(prev == nullptr) {
-            head = temp -> next;
-        } else {
-            prev -> next = temp -> next;
-        }
-
-        return head;
-    }
-};
-
-// Revised - 01/15/2025
+// Revised - 02/26/2025
